@@ -16,7 +16,7 @@ async def cmd_exec_python(c:Client, m:Message):
         text = await get_output(parts, c, m)
 
     eval_helper["result"] = text
-    eval_helper["code"] = parts[1]
+    eval_helper["code"] = parts[1] if len(parts)>1 else "No code provided."
     eval_helper["chat_id"] = m.chat.id
 
 
