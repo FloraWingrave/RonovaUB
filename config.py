@@ -1,4 +1,17 @@
-api_id = ""
-api_hash = ""
-admin = ""
-string_session = ""
+import os
+
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+
+API_ID: int = int(os.getenv('api_id'))
+API_HASH: str = os.getenv('api_hash')
+BOT_TOKEN: str = os.getenv('bot_token')
+ADMIN_ID: list[int] = [int(os.getenv('admin'))]
+SESSION_STRING: str = os.getenv('string_session')
+TAVILY_KEY: str = os.getenv('TAVILY_KEY')
+BOT:str|int = os.getenv('bot')
+
+PREFIXES: list[str] = [".", "@", "#", "$", "%", "^", "&", "*", "~"]

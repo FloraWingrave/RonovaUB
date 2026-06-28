@@ -1,1 +1,6 @@
-.qodo
+.env
+__pycache__/
+test.py 
+*.session
+*.session-journal
+logs.txt

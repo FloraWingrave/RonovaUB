@@ -1,0 +1,3 @@
+git+https://github.com/KurimuzonAkuma/kurigram.git
+tgcrypto
+python-dotenv
