@@ -40,7 +40,7 @@ async def inline_logs(c: Client, q: InlineQuery):
         )
     ], cache_time=0)
 
-@Client.on_callback_query(filters.regex("^clear_logs$"))
+@Client.on_callback_query(filters.regex("clear_logs"))
 async def clear_logs_cb(c: Client, cb:CallbackQuery):
 
     from config import ADMIN_ID

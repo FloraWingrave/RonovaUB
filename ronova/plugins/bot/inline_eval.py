@@ -1,0 +1,70 @@
+from pyrogram import Client, filters
+from pyrogram.types import (
+    InlineQuery,CallbackQuery,
+    InlineQueryResultArticle,
+    InputTextMessageContent,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton
+)
+from pyrogram.enums import ButtonStyle
+
+from ..utilities import paste, eval_helper, delete_paste
+
+@Client.on_inline_query(filters.regex("eval"))
+async def inline_eval(c: Client, q: InlineQuery):
+    user_id = q.from_user.id
+
+    text = eval_helper.get("result", "No Text")
+    code = eval_helper.get("code", "No code")
+
+    buttons = [
+        [InlineKeyboardButton("🗑 Delete", callback_data=f"del_{user_id}", style=ButtonStyle.DANGER)]
+    ]
+
+    if len(text) > 300:
+        paste_id, link = await paste(
+            content=text,
+            title="Eval output",
+            fmt="text",
+            time="10M"
+        )
+        eval_helper["paste_id"] = paste_id
+        buttons.append(
+            [InlineKeyboardButton("Full Output", url=link, style=ButtonStyle.PRIMARY)]
+        )
+        text = "Output too long, click button below."
+
+    await q.answer(
+        [
+            InlineQueryResultArticle(
+                title="Eval Output",
+                input_message_content=InputTextMessageContent(
+                    f"<b>Code:</b>\n<blockquote>\n{code}</blockquote>\n\n"
+                    f"<b>Output:</b>\n<blockquote>{text}</blockquote>"
+                ),
+                reply_markup=InlineKeyboardMarkup(buttons)
+            )
+        ],
+        cache_time=0
+    )
+
+@Client.on_callback_query(filters.regex("^del_"))
+async def delete_eval(c: Client, q: CallbackQuery):
+    user_id = int(q.data.split("_")[1])
+    if q.from_user.id != user_id:
+        return await q.answer("Not your", show_alert=True)
+
+    await q.answer("Deleted")
+
+    paste_id = eval_helper.get("paste_id")
+    if paste_id:
+        await delete_paste(paste_id)
+
+
+    from ronova import ub
+    await ub.delete_messages(
+            chat_id=eval_helper['chat_id'],
+            message_ids=[eval_helper['message_id'],eval_helper['sent_id']]
+        )
+
+    eval_helper.clear()
