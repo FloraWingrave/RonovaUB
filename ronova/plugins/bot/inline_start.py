@@ -124,6 +124,9 @@ async def start_guest(c: Client, m: Message):
     rich_text = rich_text_setup()
     query_id = m.guest_query_id
 
+    if m.reply_to_message:
+        return
+
     await c.answer_guest_query(
         guest_query_id=query_id,
         result=InlineQueryResultArticle(

@@ -52,7 +52,7 @@ async def think(c:Client, m:Message):
 
         await msg.delete()
 
-        await msg.edit(
+        await m.reply(
             f"💭 **Think**\n\n"
             f"**Query:** `{query}`\n\n"
             f"{answer}"
