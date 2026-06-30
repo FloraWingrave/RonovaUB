@@ -6,7 +6,7 @@ from ..utilities import eval_helper
 
 
 @Client.on_message(filters.command("ping", prefixes=PREFIXES) & filters.user(ADMIN_ID))
-async def googleit(c: Client, m: Message):
+async def ping_message(c: Client, m: Message):
     return await m.reply("ded")
 
     results = await c.get_inline_bot_results(bot=BOT, query="ping")
