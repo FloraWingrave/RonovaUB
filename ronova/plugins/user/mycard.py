@@ -14,7 +14,7 @@ async def get_card():
     os.makedirs("gi_downloads", exist_ok=True)
 
     async with encbanner2.ENC(uid="1817389136") as encard:
-        result = await encard.creat()
+        result = await encard.creat(2)
 
     for char in result.card:
         name = (char.name or "").strip()
