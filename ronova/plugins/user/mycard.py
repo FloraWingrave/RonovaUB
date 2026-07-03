@@ -8,7 +8,6 @@ from pyrogram.types import Message, ReplyParameters
 from config import PREFIXES, BOT
 
 
-# ✅ Generate cards
 async def get_card(uid: str = "1817389136"):
     os.makedirs("gi_downloads", exist_ok=True)
 
@@ -53,7 +52,7 @@ async def mygicard(c: Client, m: Message):
         )
 
     except Exception as e:
-        await msg.edit(f"" Inline error:\n{e}")
+        await msg.edit(f" Inline error:\n{e}")
         return
 
     await msg.delete()
