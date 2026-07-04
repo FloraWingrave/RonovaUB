@@ -12,7 +12,6 @@ from config import PREFIXES, BOT
 import os
 
 async def get_card():
-    os.makedirs("gi_downloads", exist_ok=True)
 
     async with encbanner.ENC(uid="1817389136") as encard:
         result = await encard.creat()
@@ -23,6 +22,8 @@ async def get_card():
             name = str(char.id)
 
         safe_name = name
+
+        os.makedirs("gi_downloads", exist_ok=True)
 
         img = char.card
         img = img.resize((800, int(img.height * (800 / img.width))), Image.LANCZOS)
