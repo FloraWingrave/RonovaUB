@@ -30,7 +30,7 @@ async def inline_eval(c: Client, q: InlineQuery):
         buttons.append(
             [InlineKeyboardButton("Full Output", url=link, style=ButtonStyle.PRIMARY)]
         )
-        text = f"Output too long, click button below\nBin_id: {eval_helper["paste_id"]}"
+        text = f"Output too long, click button below\nBin_id: {eval_helper['paste_id']}"
 
     await q.answer(
         [

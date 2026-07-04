@@ -1,58 +1,63 @@
-# import os
-# from PIL import Image
+import os
+from PIL import Image
 
-# from enkacard import encbanner
-# from pyrogram import Client, filters
-# from pyrogram.types import Message, ReplyParameters
-
-# from config import PREFIXES, BOT, g_id
+from enkacard import encbanner
+from pyrogram import Client, filters
+from pyrogram.types import Message, ReplyParameters
 
 
-# async def get_card(uid: str = g_id):
-#     os.makedirs("gi_downloads", exist_ok=True)
+from config import PREFIXES, BOT
 
-#     async with encbanner.ENC(uid=uid) as encard:
-#         result = await encard.creat(2)
 
-#     for char in result.card:
-#         name = (char.name or "").strip() or str(char.id)
-#         safe_name = name.replace("/", "_")
+import os
 
-#         img = char.card
-#         img = img.resize(
-#             (800, int(img.height * (800 / img.width))),
-#             Image.LANCZOS
-#         )
+async def get_card():
+    os.makedirs("gi_downloads", exist_ok=True)
 
-#         img.save(f"gi_downloads/{char.id}_{safe_name}.png", "PNG", optimize=True)
+    async with encbanner.ENC(uid="1817389136") as encard:
+        result = await encard.creat()
 
-# @Client.on_message(filters.command("mycard", prefixes=PREFIXES))
-# async def mygicard(c: Client, m: Message):
+    for char in result.card:
+        name = (char.name or "").strip()
+        if not name:
+            name = str(char.id)
 
-#     msg = await m.reply("Generating your cards...")
+        safe_name = name
 
-#     try:
-#         await get_card()
+        img = char.card
+        img = img.resize((800, int(img.height * (800 / img.width))), Image.LANCZOS)
+        img.save(f"gi_downloads/{char.id}_{safe_name}.png", format="PNG", optimize=True)
 
-#     except Exception as e:
-#         await msg.edit(f"Error:\n{e}")
-#         return
 
-#     try:
-#         results = await c.get_inline_bot_results(
-#             bot=BOT,
-#             query="genshin_card"
-#         )
+@Client.on_message(filters.command("mycard", prefixes=PREFIXES))
+async def mygicard(c:Client, m:Message):
 
-#         await c.send_inline_bot_result(
-#             chat_id=m.chat.id,
-#             query_id=results.query_id,
-#             result_id=results.results[0].id,
-#             reply_parameters=ReplyParameters(message_id=m.id)
-#         )
+    msg = await m.reply("please wait...")
 
-#     except Exception as e:
-#         await msg.edit(f" Inline error:\n{e}")
-#         return
+    try:
+    
+        if not os.path.exists(f"gi_downloads"):
+            await msg.edit("fetching data...")
+            await get_card()
+    
+    except:
 
-#     await msg.delete()
+        await msg.edit("Downloading assests...")
+        from enkanetwork import EnkaNetworkAPI
+        enka_update = EnkaNetworkAPI()
+        async with enka_update:
+            await enka_update.update_assets()
+
+        if not os.path.exists(f"gi_downloads"):
+            await msg.edit("fetching data...")
+            await get_card()
+
+    results = await c.get_inline_bot_results(bot=BOT, query=f"genshin_card")
+
+    await c.send_inline_bot_result(
+            chat_id=m.chat.id,
+            query_id=results.query_id,
+            result_id=results.results[0].id,
+            reply_parameters=ReplyParameters(message_id=m.id)
+        )
+    await msg.delete()

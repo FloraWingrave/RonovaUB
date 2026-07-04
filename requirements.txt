@@ -5,5 +5,5 @@ aiohttp
 python-dotenv
 openai
 google-genai
-enkacard
-enkanetworkv2.py
+# enkacard
+# enkanetworkv2.py
