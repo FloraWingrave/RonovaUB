@@ -4,6 +4,7 @@ from google import genai
 from openai import OpenAI
 
 from config import GEMINI_KEY, GROQ_KEY
+from . import session
 
 
 class AllAI:
@@ -63,7 +64,7 @@ class AllAI:
                 },
             }
 
-            async with aiohttp.ClientSession() as session:
+            async with session:
                 async with session.post(
                     "https://api.binjie.fun/api/generateStream",
                     headers={"Content-Type": "application/json"},

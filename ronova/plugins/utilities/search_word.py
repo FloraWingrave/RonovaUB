@@ -1,9 +1,9 @@
-import aiohttp
+from . import session
 
 async def word_search(word):
     url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
 
-    async with aiohttp.ClientSession() as session:
+    async with session:
         async with session.get(url) as resp:
             data = await resp.json()
 

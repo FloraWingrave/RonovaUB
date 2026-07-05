@@ -1,7 +1,6 @@
-import aiohttp
-
 from config import TAVILY_KEY
 from .ai import AllAI
+from . import session
 
 
 HTML_SYSTEM_PROMPT = """
@@ -123,7 +122,7 @@ class AiSearch:
 
     async def search(self) -> list:
         try:
-            async with aiohttp.ClientSession() as session:
+            async with session:
                 async with session.post(
                     "https://api.tavily.com/search",
                     json={

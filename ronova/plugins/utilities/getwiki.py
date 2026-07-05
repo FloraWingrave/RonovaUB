@@ -1,13 +1,9 @@
-import aiohttp
+from . import session
 
 async def wiki_search(query: str):
     url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{query}"
 
-    headers = {
-        "User-Agent": "MyTelegramBot/1.0 (https://example.com; your@email.com)"
-    }
-
-    async with aiohttp.ClientSession(headers=headers) as session:
+    async with session:
         async with session.get(url) as resp:
             if resp.status == 404:
                 return None

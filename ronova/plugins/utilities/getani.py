@@ -1,4 +1,5 @@
 import aiohttp
+from . import session
 
 url = "https://graphql.anilist.co"
 
@@ -20,7 +21,7 @@ query ($search: String) {
 """
 
 async def fetch_anime(name):
-    async with aiohttp.ClientSession() as session:
+    async with session:
         async with session.post(url, json={
             "query": query,
             "variables": {"search": name}

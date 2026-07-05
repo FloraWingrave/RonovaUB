@@ -1,23 +1,16 @@
 import aiohttp
 
 from config import TMDB_KEY
+from . import session
 
 API_KEY = TMDB_KEY
 BASE_URL = "https://api.themoviedb.org/3"
 
-_session: aiohttp.ClientSession | None = None
 
-
-async def get_session() -> aiohttp.ClientSession:
-    global _session
-    if _session is None or _session.closed:
-        _session = aiohttp.ClientSession()
-    return _session
 
 
 async def get_full_movie(query: str):
     try:
-        session = await get_session()
 
         async with session.get(
             f"{BASE_URL}/search/movie",

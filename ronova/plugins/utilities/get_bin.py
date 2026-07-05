@@ -1,11 +1,13 @@
 import aiohttp
 
+from . import session
+
 class PasteRS:
     BASE = "https://paste.rs"
 
     async def create(self, content):
-        async with aiohttp.ClientSession() as s:
-            async with s.post(self.BASE, data=content) as r:
+        async with session:
+            async with session.post(self.BASE, data=content) as r:
                 return await r.text()
     async def delete(self, paste_id):
         async with aiohttp.ClientSession() as s:
