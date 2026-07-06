@@ -5,6 +5,4 @@ aiohttp
 python-dotenv
 openai
 google-genai
-enkacard
-enkanetworkv2.py
 git+https://github.com/BreezeKun/richparser.git
