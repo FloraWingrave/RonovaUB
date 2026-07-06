@@ -3,6 +3,7 @@ from pyrogram.types import (InputRichMessage, InlineQuery,
                              InlineQueryResultArticle, InputRichMessageContent)
 
 from ..utilities import get_full_movie
+from config import ADMIN_ID
 
 
 def _escape(text) -> str:
@@ -65,7 +66,7 @@ def build_not_found_html(query: str) -> str:
     )
 
 
-@Client.on_inline_query(filters.regex(r"moviename (.+)"))
+@Client.on_inline_query(filters.regex(r"moviename (.+)")& filters.user(ADMIN_ID))
 async def inline_movie(c: Client, q: InlineQuery):
     name = q.matches[0].group(1)
     result = await get_full_movie(name)

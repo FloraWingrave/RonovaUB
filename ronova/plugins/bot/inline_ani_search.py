@@ -3,6 +3,7 @@ from pyrogram.types import (InputRichMessage, InlineQuery,
                             InlineQueryResultArticle, InputRichMessageContent)
 
 from ..utilities import fetch_anime
+from config import ADMIN_ID
 
 
 def build_rich_html(anime_id, status, episodes, score, genres, description, en_name, native_name) -> str:
@@ -40,7 +41,7 @@ def build_rich_html(anime_id, status, episodes, score, genres, description, en_n
 <blockquote>{clean_desc}<cite>AniList</cite></blockquote>
 </details>"""
 
-@Client.on_inline_query(filters.regex(r"anime (.+)"))
+@Client.on_inline_query(filters.regex(r"anime (.+)") & filters.user(ADMIN_ID))
 async def inline_ani(c: Client, q: InlineQuery):
     name      = q.matches[0].group(1)
     result    = await fetch_anime(name)

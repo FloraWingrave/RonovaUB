@@ -3,6 +3,7 @@ from pyrogram.types import (InputRichMessage, InlineQuery,
                              InlineQueryResultArticle, InputRichMessageContent)
 
 from ..utilities import word_search
+from config import ADMIN_ID
 
 
 def _escape(text: str) -> str:
@@ -93,7 +94,7 @@ def build_rich_html(result: dict) -> str:
     return "".join(parts)
 
 
-@Client.on_inline_query(filters.regex(r"word (.+)"))
+@Client.on_inline_query(filters.regex(r"word (.+)") & filters.user(ADMIN_ID))
 async def inline_ani(c: Client, q: InlineQuery):
     name = q.matches[0].group(1)
     result = await word_search(name)
