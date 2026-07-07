@@ -1,4 +1,3 @@
-import sys
 import traceback
 from io import StringIO
 from contextlib import redirect_stdout, redirect_stderr

@@ -1,5 +1,5 @@
 from config import TMDB_KEY
-from ..utilities import session
+from .http_session import session
 
 API_KEY = TMDB_KEY
 BASE_URL = "https://api.themoviedb.org/3"

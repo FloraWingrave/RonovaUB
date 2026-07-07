@@ -1,4 +1,4 @@
-from ..utilities import session
+from .http_session import session
 
 class PasteRS:
     BASE = "https://paste.rs"
