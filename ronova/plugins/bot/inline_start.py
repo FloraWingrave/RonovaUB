@@ -68,8 +68,8 @@ def rich_text_setup():
 
     <hr/>
 
-    <blockquote>
-    <p>💬 <b>Contact:</b> This bot also works as a contact medium between the user and the owner. Instead of DMing directly, you can send a message to the bot admin through the bot.</p>
+    <blockquote><cite>
+    <p>💬 <b>Contact:</b> This bot also works as a contact medium between the user and the owner. Instead of DMing directly, you can send a message to the bot admin through the bot.</p></cite>
     </blockquote>
 
     <hr/>
