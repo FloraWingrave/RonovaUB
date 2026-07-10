@@ -71,7 +71,7 @@ Set the following environment variables in your `.env` file:
 | `@botusername @targetusername <text>` | Send a private text to a target user |
 | `@botusername rich <text>` | Send a rich message — see the [richparser](https://github.com/BreezeKun/richparser) library for formatting reference |
 | `start` | Check if the bot is up |
-| **DM Forwarding** | Any message sent to the bot is forwarded to you (the admin). Reply to the forwarded message to send a reply back to the original sender |
+| **DM Forwarding** | Any message sent to the bot is forwarded to you (the admin). Reply to the forwarded message to send a reply back to the original sender ( also works for private accounts )|
 | **Group Guest Mode** | Sending the bot's username in a group triggers guest mode, responding similarly to the `start` command |
 
 ---
