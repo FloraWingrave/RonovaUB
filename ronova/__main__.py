@@ -4,18 +4,24 @@ import uvloop
 from ronova import ub, bot
 from .server import startServer
 
+async def close_session():
+    from .plugins.utilities import session
+    await session.close()
+
 async def main():
-    await bot.start()
-    await ub.start()
+    try:
+        await bot.start()
+        await ub.start()
 
-    await startServer()
+        asyncio.create_task(startServer())
 
-    print("Bot and UB started!")
+        print("Bot and UB started!")
 
-    await idle()
-
-    await bot.stop()
-    await ub.stop()
+        await idle()
+    finally:
+        await ub.stop()
+        await bot.stop()
+        await close_session()
 
 uvloop.install()
 if __name__ == "__main__":
