@@ -16,6 +16,7 @@ TAVILY_KEY: str = os.getenv('tavily_key')
 TMDB_KEY:str = os.getenv('tmdb_key')
 GEMINI_KEY:str = os.getenv('gemini_key')
 GROQ_KEY:str = os.getenv('groq_key')
+RENDER_API = os.getenv('render_api')
 
 
 PREFIXES: list[str] = [".", "@", "#", "$", "%", "^", "&", "*", "~", ""]
