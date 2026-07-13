@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 PORT = 8080
 
 ADVICE = """
-Rip
+I love someone <3 ...
 """
 
 
