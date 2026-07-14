@@ -1,6 +1,7 @@
 import time
 import asyncio
 
+from pyrogram.types import Message
 from pyrogram.errors import FloodWait
 from pyrogram.enums import MessageMediaType
 
@@ -37,7 +38,7 @@ def format_time(seconds: int) -> str:
     return " ".join(parts)
 
 
-def extract_media(message):
+def extract_media(message:Message):
     if not message or not message.media:
         return None, None
 

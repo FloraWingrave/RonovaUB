@@ -38,7 +38,7 @@ async def rem_afk(c:Client, m:Message):
 @Client.on_message(
     (filters.private | filters.mentioned | to_me(ADMIN_ID[0]))
     & ~filters.me
-    & ~filters.command(["afk", "brb"], prefixes=PREFIXES),
+    & ~filters.bot,
     group=0
 )
 async def on_afk(c: Client, m: Message):
