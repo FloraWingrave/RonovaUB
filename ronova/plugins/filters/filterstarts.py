@@ -7,9 +7,13 @@ def starts(prefix: str | None = None):
     if prefix is None:
         raise NoData("pass a prefix in starts(prefix:str = '')")
 
+    prefix = prefix.lower()
+
     async def func(flt, c: Client, m: Message):
-        if not m.text:
+        text = m.text
+        if not text:
             return False
-        return m.text.startswith(prefix)
+
+        return text.lower().startswith(prefix)
 
     return filters.create(func, name="StartsFilter")
