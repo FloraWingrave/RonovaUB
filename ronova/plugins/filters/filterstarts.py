@@ -4,6 +4,11 @@ from pyrogram.types import Message
 from .errors import NoData
 
 def starts(prefix: str | None = None):
+
+    """
+    starts(prefix:str) checks if the message starts with the prefix (Not case sensetive)
+    """
+
     if prefix is None:
         raise NoData("pass a prefix in starts(prefix:str = '')")
 
