@@ -17,7 +17,7 @@ def quote_state(
     QUOTE_STATE.user_chat_id = user_chat_id
     QUOTE_STATE.user_message_id = user_message_id
 
-@Client.on_message(filters.user(QUOTLY_BOT) & filters.sticker & filters.bot)
+@Client.on_message(filters.user(QUOTLY_BOT) & filters.sticker & filters.bot, group= 0)
 async def get_quote(c:Client, m:Message):
     if  QUOTE_STATE.status and m.sticker:
         await c.send_sticker(
@@ -28,7 +28,7 @@ async def get_quote(c:Client, m:Message):
         quote_state()
         
 
-@Client.on_message(filters.command(QUOTE_COMMAND, prefixes=PREFIXES) & filters.user(ADMIN_ID))
+@Client.on_message(filters.command(QUOTE_COMMAND, prefixes=PREFIXES) & filters.user(ADMIN_ID), group= 2)
 async def quote(c:Client, m:Message):
     
     rm = m.reply_to_message
