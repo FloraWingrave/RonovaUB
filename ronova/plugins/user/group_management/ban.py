@@ -28,7 +28,7 @@ async def ban_user(
         revoke_reactions=revoke_reactions,
     )
     except Exception as e:
-        m.edit(e)
+        await m.edit(e)
     
     return
 
