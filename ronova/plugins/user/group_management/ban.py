@@ -21,15 +21,16 @@ async def ban_user(
 ):  
     try:
         await c.ban_chat_member(
-        chat_id=chat_id,
-        user_id=target_id,
-        until_date=time,
-        revoke_messages=revoke_messages,
-        revoke_reactions=revoke_reactions,
-    )
+            chat_id=chat_id,
+            user_id=target_id,
+            until_date=time,
+            revoke_messages=revoke_messages,
+            revoke_reactions=revoke_reactions,
+        )
         return True
+
     except Exception as e:
-        await m.edit(e)
+        await m.reply_text(f"Ban failed:\n{e}")
         return False
 
 
