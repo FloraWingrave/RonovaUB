@@ -61,12 +61,22 @@ Set the following environment variables in your `.env` file:
 | `stats` | stats of userbot |
 | `think <text>` / `think adv <text>` | AI-powered search |
 | `wiki <text>` | Search Wikipedia |
+| `q <text>` | quote a message or reply to message to quote it |
 | `afk <text>` | set user status to afk if replied to media it will send media |
 | `ban <uid> <uptil> <reason>`| bans a user uid is necessary if not replied to user |
 | `cban <uid> <uptil> <reason>`| same as ban but revokes users texts and reaction |
 | `dban <uid> <uptil> <reason>`| same as ban but deletes replied message |
 | `sban <uid> <uptil> <reason>`| same as ban but silently bans user |
 | `unban <uid>`| unbans a user if replied to targets message uid not required |
+
+
+#### Note:
+**uptil date cant be less than 30s and more than 366d**
+- 1s - 1 seconds
+- 1m - 1 minutes
+- 1h - 1 hour
+- 1w - 1 week
+- 1d - 1 day
 
 ---
 
