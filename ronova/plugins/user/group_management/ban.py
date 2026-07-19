@@ -18,7 +18,7 @@ async def ban_user(
     time: Optional[datetime],
     revoke_messages: bool = False,
     revoke_reactions: bool = False,
-):  
+):
     try:
         await c.ban_chat_member(
             chat_id=chat_id,
@@ -42,7 +42,6 @@ async def ban_user(
 async def gc_mang(c: Client, m: Message):
 
     parser = RetriveData(c, m)
-    
     data = await parser.ban_data()
 
     chat_id = data["chat_id"]
@@ -50,13 +49,23 @@ async def gc_mang(c: Client, m: Message):
     time = data["time"]
     reason = data["reason"]
 
-    if not target_id or target_id == m.from_user.id:
-        return
+    if not target_id:
+        return await m.reply_text("No target user found.")
+
+    if target_id == m.from_user.id:
+        return await m.reply_text("You can't ban yourself.")
 
     cmd = m.command[0]
     duration = format_duration(time)
 
-    text = f"Banned user `{target_id}` for {duration}"
+    try:
+        user = await c.get_users(target_id)
+        name = user.first_name
+        mention = f"[{name}](tg://user?id={target_id})"
+    except:
+        mention = f"`{target_id}`"
+
+    text = f"Banned {mention} for {duration}"
     if reason:
         text += f"\nReason: {reason}"
 
@@ -66,17 +75,23 @@ async def gc_mang(c: Client, m: Message):
 
     elif cmd == "dban":
         if m.reply_to_message:
-            await m.reply_to_message.delete()
+            try:
+                await m.reply_to_message.delete()
+            except:
+                pass
 
         if await ban_user(c, m, chat_id, target_id, time):
             await m.reply_text(text)
 
     elif cmd == "sban":
-        if await ban_user(c, chat_id, target_id, time):
+        success = await ban_user(c, m, chat_id, target_id, time)
+        try:
             await m.delete()
+        except:
+            pass
 
     elif cmd == "cban":
-        await ban_user(
+        if await ban_user(
             c,
             m,
             chat_id,
@@ -84,6 +99,5 @@ async def gc_mang(c: Client, m: Message):
             time,
             revoke_messages=True,
             revoke_reactions=True,
-        )
-        if await ban_user(c, m, chat_id, target_id, time):
+        ):
             await m.reply_text(text)
