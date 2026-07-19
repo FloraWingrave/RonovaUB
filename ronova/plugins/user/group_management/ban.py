@@ -27,10 +27,10 @@ async def ban_user(
         revoke_messages=revoke_messages,
         revoke_reactions=revoke_reactions,
     )
+        return True
     except Exception as e:
         await m.edit(e)
-    
-    return
+        return False
 
 
 @Client.on_message(
@@ -60,19 +60,19 @@ async def gc_mang(c: Client, m: Message):
         text += f"\nReason: {reason}"
 
     if cmd == "ban":
-        await ban_user(c, m, chat_id, target_id, time)
-        await m.reply_text(text)
+        if await ban_user(c, m, chat_id, target_id, time):
+            await m.reply_text(text)
 
     elif cmd == "dban":
         if m.reply_to_message:
             await m.reply_to_message.delete()
 
-        await ban_user(c, m, chat_id, target_id, time)
-        await m.reply_text(text)
+        if await ban_user(c, m, chat_id, target_id, time):
+            await m.reply_text(text)
 
     elif cmd == "sban":
-        await m.delete()
-        await ban_user(c, chat_id, target_id, time)
+        if await ban_user(c, chat_id, target_id, time):
+            await m.delete()
 
     elif cmd == "cban":
         await ban_user(
@@ -84,4 +84,5 @@ async def gc_mang(c: Client, m: Message):
             revoke_messages=True,
             revoke_reactions=True,
         )
-        await m.reply_text(text)
+        if await ban_user(c, m, chat_id, target_id, time):
+            await m.reply_text(text)
