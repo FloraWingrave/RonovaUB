@@ -25,5 +25,8 @@ async def gc_mang(c: Client, m: Message):
     if not target_id or target_id == m.from_user.id:
         return
 
-    await c.unban_chat_member(chat_id=chat_id, user_id=target_id)
-    await m.reply_text(f"Unbanned user `{target_id}`")
+    try:
+        await c.unban_chat_member(chat_id=chat_id, user_id=target_id)
+        await m.reply_text(f"Unbanned user `{target_id}`")
+    except Exception as e:
+        await m.edit(e)
