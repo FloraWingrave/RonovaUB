@@ -7,7 +7,7 @@ from config import ADMIN_ID, PREFIXES
 from ..shared import AFK_DATA
 from ..utilities import format_time, refresh_data, send, extract_media
 from ..filters import to_me
-from decorators import on_expired
+from ..decorators import on_expired
 
 @Client.on_message(filters.command(["afk", "brb"], prefixes=PREFIXES) & filters.user(ADMIN_ID), group= 2)
 async def afk(c:Client, m:Message):
