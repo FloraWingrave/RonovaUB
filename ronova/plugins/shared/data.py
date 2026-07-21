@@ -7,6 +7,8 @@ class AfkState:
     afk_time: float | None = None
     file_type: str | None = None
     file_id: str | None = None
+    media_from_chat: int | None = None
+    message_media_id: int | None = None
     users: list[int] = field(default_factory=list)
 
 AFK_DATA = AfkState()
