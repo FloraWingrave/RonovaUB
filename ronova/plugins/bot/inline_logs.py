@@ -100,5 +100,5 @@ async def clear_logs_cb(c: Client, cb:CallbackQuery):
 
     await c.edit_inline_text(
         inline_message_id=cb.inline_message_id,
-        text="🧹 Logs have been cleared."
+        text="<tg-emoji emoji-id='5256053622474553432'>😍</tg-emoji> Logs have been cleared."
     )
